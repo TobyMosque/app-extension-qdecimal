@@ -14,6 +14,10 @@ export default function (ssrContext) {
       lang: String,
       suffix: [String, Boolean],
       prefix: [String, Boolean],
+      type: {
+        type: String,
+        default: "tel"
+      },
       mode: {
         type: String,
         default: "decimal",
@@ -40,6 +44,13 @@ export default function (ssrContext) {
         validation (value) {
           return value >= 0
         }
+      },
+      step: {
+        type: Number,
+        default: 1,
+        validation (value) {
+          return value >= 0
+        }
       }
     },
     data () {
@@ -58,8 +69,8 @@ export default function (ssrContext) {
             style: this.mode, 
             currency: this.currency, 
             currencyDisplay: this.display, 
-            minimumFractionDigits: this.precision, 
-            maximumFractionDigits: this.precision
+            minimumFractionDigits: this.cPrecision, 
+            maximumFractionDigits: this.cPrecision
           }
         }
       },
@@ -67,7 +78,7 @@ export default function (ssrContext) {
         return Intl.NumberFormat(this.intl.language, this.intl.options)
       },
       numberFormatter () {
-        return Intl.NumberFormat(this.intl.language, { style: 'decimal', minimumFractionDigits: this.precision, maximumFractionDigits: this.precision })
+        return Intl.NumberFormat(this.intl.language, { style: 'decimal', minimumFractionDigits: this.cPrecision, maximumFractionDigits: this.cPrecision })
       },
       formatter () {
         if (!this.prefix && !this.suffix) {
@@ -77,6 +88,9 @@ export default function (ssrContext) {
             return this.numberFormatter
         }
         return this.valueFormatter
+      },
+      cPrecision () {
+        return this.mode === 'percent' ? 0 : this.precision
       },
       cPrefix () {
         return this.prefix ? (typeof this.prefix === "boolean" ? this.currencyText : this.prefix) : null
@@ -91,7 +105,7 @@ export default function (ssrContext) {
         set (value) {
           let onlyNumbers = value.replace(/\D/gi, '') || '0'
           let interger = parseInt(onlyNumbers)
-          let decimal = interger / Math.pow(10, this.precision)
+          let decimal = interger / Math.pow(10, this.cPrecision)
           this.$emit('input', parseFloat(decimal))
         },
       }
@@ -133,6 +147,31 @@ export default function (ssrContext) {
         on: {
           input (value) {
             self.cValue = value
+          },
+          keyup (event) {
+            if (event.target !== event.currentTarget) {
+              return
+            }
+            if (!event.shiftKey) {
+              switch (event.keyCode) {
+                case 38: 
+                  self.$emit('input', self.value + self.step) 
+                  break
+                case 40: 
+                  if (self.value - self.step > 0) {
+                    self.$emit('input', self.value - self.step)
+                  } else {
+                    self.$emit('input', 0)
+                  }
+                  break
+              }
+            }
+          },
+          focus () {
+            var el = self.$refs.input.$refs.input
+            window.setTimeout(function () {
+              el.selectionStart = el.selectionEnd = el.value.length;
+            })
           }
         }
       }, [])
