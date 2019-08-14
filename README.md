@@ -68,7 +68,8 @@ data () {
 | mode | String | The formatting style to use. Possible values are `decimal` for plain number formatting, `currency` for currency formatting, and `percent` for percent formatting (default: `decimal`) |
 | currency | String | The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as `USD` for the US dollar, `EUR` for the euro, or `CNY` for the Chinese. There is no default value, if the mode is `currency`, the currency property must be provided. |
 | display | String | How to display the currency in currency formatting. Possible values are `symbol` to use a localized currency symbol such as €, `code` to use the ISO currency code, `name` to use a localized currency name such as `dollar` (default: `symbol`) |
-| precision | Number | The number of integer digits to use. Possible values are from `1` to `21` (default: `2`) |
+| places | Number | The number of integer digits to use in the integer part. Possible values are from `1` to `16`. places plus precision must be equal or less than `16`. the default is (`16 - precision`). |
+| precision | Number | The number of integer digits to use in the fraction part. Possible values are from `0` to `15`. places plus precision must be equal or less than `16`. the default is `2`. |
 | step | Number | The step property specifies the legal number intervals (eg: `1`, `0.2`, `3.3`) (default: `2`) |
 
 # Donate

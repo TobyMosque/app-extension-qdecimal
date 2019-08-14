@@ -103,10 +103,10 @@
           </q-card-section>
           <q-separator inset />
           <q-card-section>
-            <q-decimal class="q-mb-md" label="right aligned with suffix" outlined v-model="bitcoin" :precision="8" input-style="text-align: right" suffix="₿"></q-decimal>
-            <q-decimal class="q-mb-md" label="right aligned with prefix" outlined v-model="bitcoin" :precision="8" input-style="text-align: right" prefix="₿"></q-decimal>
-            <q-decimal class="q-mb-md" label="left aligned with prefix" outlined v-model="bitcoin" :precision="8" prefix="₿"></q-decimal>
-            <q-decimal class="q-mb-md" label="left aligned with suffix" outlined v-model="bitcoin" :precision="8" suffix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="right aligned with suffix" outlined v-model="bitcoin" :places="1" :precision="8" input-style="text-align: right" suffix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="right aligned with prefix" outlined v-model="bitcoin" :places="1" :precision="8" input-style="text-align: right" prefix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="left aligned with prefix" outlined v-model="bitcoin" :places="1" :precision="8" prefix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="left aligned with suffix" outlined v-model="bitcoin" :places="1" :precision="8" suffix="₿"></q-decimal>
           </q-card-section>
         </q-card>
       </div>
