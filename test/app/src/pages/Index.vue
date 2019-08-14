@@ -96,6 +96,52 @@
           </q-card-section>
         </q-card>
       </div>
+      <div class="col col-lg-3 col-md-6 col-12 q-pa-md">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Custom - Bitcoin with Precision 8</div>
+          </q-card-section>
+          <q-separator inset />
+          <q-card-section>
+            <q-decimal class="q-mb-md" label="right aligned with suffix" outlined v-model="bitcoin" :precision="8" input-style="text-align: right" suffix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="right aligned with prefix" outlined v-model="bitcoin" :precision="8" input-style="text-align: right" prefix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="left aligned with prefix" outlined v-model="bitcoin" :precision="8" prefix="₿"></q-decimal>
+            <q-decimal class="q-mb-md" label="left aligned with suffix" outlined v-model="bitcoin" :precision="8" suffix="₿"></q-decimal>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+    <div class="full-width row q-pa-md">
+      <div class="col col-md-6 col-12 q-pa-md">
+        <q-banner rounded class="bg-primary text-white">
+          <template v-slot:avatar>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+            </q-avatar>
+          </template>
+          New to Quasar? Don't miss the chance to know the best Framework based on Vue
+          <template v-slot:action>
+            <a href="https://quasar.dev">
+              <q-btn flat color="white" label="Show me" />
+            </a>
+          </template>
+        </q-banner>
+      </div>
+      <div class="col col-md-6 col-12 q-pa-md">
+        <q-banner rounded class="bg-grey-10 text-white">
+          <template v-slot:avatar>
+            <q-avatar>
+              <img src="statics/git-octupus.png">
+            </q-avatar>
+          </template>
+          Quasar App Extension QDecimal Repository
+          <template v-slot:action>
+            <a href="https://github.com/TobyMosque/app-extension-qdecimal">
+              <q-btn flat color="white" label="Show me" />
+            </a>
+          </template>
+        </q-banner>
+      </div>
     </div>
   </q-page>
 </template>
@@ -110,6 +156,7 @@ export default {
   data () {
     return {
       decimal: 0,
+      bitcoin: 0,
       currency: 'EUR',
       language: 'en-us',
       languages,
