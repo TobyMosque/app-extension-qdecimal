@@ -156,14 +156,19 @@ export default function (ssrContext) {
           if (!evt) {
             return
           }
-          if (!evt.shiftKey && [38, 40].indexOf(evt.keyCode) !== -1) {
-            event.target.selectionStart = event.target.selectionEnd = evt.start
-          } else if ([8, 46].indexOf(evt.keyCode) !== -1) {
-            event.target.selectionStart = event.target.selectionEnd = evt.start
-          } else if (evt.value !== event.target.value) {
-            let len = { new: event.target.value.length, old: evt.value.length }
-            let inc = len.new - len.old
-            event.target.selectionStart = event.target.selectionEnd = evt.start + (evt.end - evt.start) + inc
+          switch (true) {
+            case !evt.shiftKey && [38, 40].indexOf(evt.keyCode) !== -1:
+            case evt.keyCode === 46:
+              event.target.selectionStart = event.target.selectionEnd = evt.start
+              break
+            case evt.keyCode === 8:
+              event.target.selectionStart = event.target.selectionEnd = evt.start - 1
+              break
+            case evt.value !== event.target.value:
+              let len = { new: event.target.value.length, old: evt.value.length }
+              let inc = len.new - len.old
+              event.target.selectionStart = event.target.selectionEnd = evt.start + (evt.end - evt.start) + inc
+              break
           }
         }, 0)
       }
