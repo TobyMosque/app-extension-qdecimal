@@ -151,26 +151,46 @@ export default function (ssrContext) {
       props.prefix = self.cPrefix
       props.suffix = self.cSuffix
       let evt = null
+      let updateCursor = (event) => {
+        if (!evt) {
+          return
+        }
+        let len, inc, pos, del = 1
+        switch (true) {
+          case !evt.shiftKey && [38, 40].indexOf(evt.keyCode) !== -1:
+          case evt.keyCode === 46:
+            event.target.selectionStart = event.target.selectionEnd = evt.end
+            break
+            // len = { new: event.target.value.length, old: evt.value.length }
+            // inc = len.new - len.old + del
+            // pos = evt.end - inc < 0 ? evt.end : evt.end - inc
+            // event.target.selectionStart = event.target.selectionEnd = pos
+            // break
+          case evt.keyCode === 8:
+            // len = { new: event.target.value.length, old: evt.value.length }
+            // inc = len.new - len.old - del
+            // pos = evt.end + inc < 0 ? evt.end : evt.end + inc
+            // event.target.selectionStart = event.target.selectionEnd = pos
+          case evt.value !== event.target.value:
+            len = { new: event.target.value.length, old: evt.value.length }
+            inc = len.new - len.old
+            pos = evt.end + inc < 0 ? evt.end : evt.end + inc
+            event.target.selectionStart = event.target.selectionEnd = pos
+            break
+        }
+      }
       let checkCursor = (event) => {
-        setTimeout(() => {
-          if (!evt) {
+        if (evt && [46, 8].indexOf(evt.keyCode) !== -1 && evt.start === evt.end) {
+          let start = evt.keyCode === 46 ? evt.end : evt.end - 1
+          let deleted = self.cValue.substring(start, start + 1)
+          if (/\D/.test(deleted)) {
+            let pos = evt.keyCode === 46 ? evt.end + 1 : evt.end - 1
+            event.target.selectionStart = event.target.selectionEnd = pos
+            event.preventDefault();
             return
           }
-          switch (true) {
-            case !evt.shiftKey && [38, 40].indexOf(evt.keyCode) !== -1:
-            case evt.keyCode === 46:
-              event.target.selectionStart = event.target.selectionEnd = evt.start
-              break
-            case evt.keyCode === 8:
-              event.target.selectionStart = event.target.selectionEnd = evt.start - 1
-              break
-            case evt.value !== event.target.value:
-              let len = { new: event.target.value.length, old: evt.value.length }
-              let inc = len.new - len.old
-              event.target.selectionStart = event.target.selectionEnd = evt.start + (evt.end - evt.start) + inc
-              break
-          }
-        }, 0)
+        }
+        setTimeout(() => updateCursor(event), 0)
       }
       return h(QInput, {
         ref: 'input',
@@ -187,7 +207,7 @@ export default function (ssrContext) {
             }
             checkCursor(event)
           },
-          keypress (event) {
+          input (event) {
             checkCursor(event)
           },
           keyup (event) {

@@ -18,7 +18,7 @@ quasar ext add qdecimal
 You can use `quasar describe QDecimal`
 
 # Demo
-Can be found [here](https://tobymosque.github.io/app-extension-qdecimal).
+Can be found [here](https://qdecimal.netlify.com/#/).
 
 # Example Code
 ```html
