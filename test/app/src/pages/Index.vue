@@ -110,6 +110,23 @@
           </q-card-section>
         </q-card>
       </div>
+      <div class="col col-lg-3 col-md-6 col-12 q-pa-md">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Validation</div>
+          </q-card-section>
+          <q-separator inset />
+          <q-card-section>
+            <q-form ref="form">
+              <q-decimal class="q-mb-md" :rules="[validate]" label="right aligned" outlined v-model="decimal" input-style="text-align: right"></q-decimal>
+              <q-decimal class="q-mb-md" :rules="[validate]" label="left aligned" outlined v-model="decimal"></q-decimal>
+            </q-form>
+          </q-card-section>
+          <q-card-actions>
+            <q-btn color="positive" class="full-width" label="Validate" @click="submit" />
+          </q-card-actions>
+        </q-card>
+      </div>
     </div>
     <div class="full-width row q-pa-md">
       <div class="col col-md-6 col-12 q-pa-md">
@@ -171,6 +188,12 @@ export default {
     async onLanguageInput () {
       let lang = await import(`quasar/lang/${this.language}`)
       this.$q.lang.set(lang.default)
+    },
+    validate (value) {
+      return this.decimal > 0 || 'error'
+    },
+    submit () {
+      this.$refs.form.validate()
     }
   }
 }

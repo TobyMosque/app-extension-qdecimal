@@ -144,12 +144,20 @@ export default function (ssrContext) {
         }
       }
     },
+    methods: {
+      validate () {
+        return this.$refs.input.validate()
+      }
+    },
     render (h) {
       var self = this
       var attrs = { ...self.$attrs };
       var props = { ...self.$props, value: self.cValue }
       props.prefix = self.cPrefix
       props.suffix = self.cSuffix
+      props.rules = (props.rules || []).map(rule => {
+        return (val) => rule(self.value)
+      })
       let evt = null
       let updateCursor = (event) => {
         if (!evt) {
