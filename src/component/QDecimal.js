@@ -155,9 +155,9 @@ export default function (ssrContext) {
       var props = { ...self.$props, value: self.cValue }
       props.prefix = self.cPrefix
       props.suffix = self.cSuffix
-      props.rules = (props.rules || []).map(rule => {
+      props.rules = props.rules ? props.rules.map(rule => {
         return (val) => rule(self.value)
-      })
+      }) : void 0
       let evt = null
       let updateCursor = (event) => {
         if (!evt) {
