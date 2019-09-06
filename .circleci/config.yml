@@ -20,8 +20,5 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: build test app
-          command: 'cd test/app && quasar build -m ssr'
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: 'git subtree push --prefix test/app/dist/ssr https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
+          name: build test app and deploy
+          command: 'cd test/app && quasar build -m ssr && cd ../.. && git subtree push --prefix test/app/dist/ssr https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
