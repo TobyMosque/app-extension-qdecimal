@@ -11,7 +11,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install and configure dependencies
-          command: 'sudo npm install -g @quasar/cli@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
+          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g gh-pages@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
       - run:
           name: installing dependencies
           command: 'cd test/app && yarn && quasar upgrade -i'
@@ -20,5 +20,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: build test app and deploy
-          command: 'cd test/app && quasar build -m ssr && cd ../.. && git subtree push --prefix test/app/dist/ssr https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
+          name: build test app
+          command: 'cd test/app && quasar build -m spa'
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: 'sudo gh-pages --dotfiles --message "[skip ci] Updates" --branch https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git --dist test/app/dist/ssr'
