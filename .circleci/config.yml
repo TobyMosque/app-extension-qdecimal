@@ -17,4 +17,4 @@ jobs:
           command: 'cd test/app && quasar build -m ssr'
       - run:
           name: Deploy docs to now
-          command: 'ls -a && cd dist/srr && now -p qdecimal -t ${NOW_TOKEN}'
+          command: 'cd test && ls -a && cd app && ls -a && cd dist && ls -a && cd ssr && ls -a && now -p qdecimal -t ${NOW_TOKEN}'
