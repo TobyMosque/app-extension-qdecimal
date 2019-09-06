@@ -11,7 +11,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install and configure dependencies
-          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g gh-pages@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
+          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g gh-pages@latest && sudo npm install -g gh-pages@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
       - run:
           name: installing dependencies
           command: 'cd test/app && yarn && quasar upgrade -i'
