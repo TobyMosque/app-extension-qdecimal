@@ -24,4 +24,4 @@ jobs:
           command: 'cd test/app && quasar build -m ssr'
       - run:
           name: Deploy docs to gh-pages branch
-          command: 'git push --prefix test/app/dist/ssr https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
+          command: 'git subtree push --prefix test/app/dist/ssr https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master'
