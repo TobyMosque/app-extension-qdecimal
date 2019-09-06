@@ -11,7 +11,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install and configure dependencies
-          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g gh-pages@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
+          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g now && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
       - run:
           name: installing dependencies
           command: 'cd test/app && yarn && quasar upgrade -i'
@@ -24,4 +24,4 @@ jobs:
           command: 'cd test/app && quasar build -m ssr'
       - run:
           name: Deploy docs to now
-          command: 'cd test/app/dist/srr && now -p qdecimal -t fRMr9o6VbAooLcS6i1pVY2nJ'
+          command: 'cd dist/srr && now -p qdecimal -t ${NOW_TOKEN}'
