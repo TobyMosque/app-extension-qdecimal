@@ -11,7 +11,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install and configure dependencies
-          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g now && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
+          command: 'sudo npm install -g @quasar/cli@latest && sudo npm install -g gh-pages@latest && git config user.email "ci-build@tobymosque.net" && git config user.name "ci-build"'
       - run:
           name: installing dependencies
           command: 'cd test/app && yarn && quasar upgrade -i'
@@ -19,6 +19,13 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - add_ssh_keys:
+          fingerprints:
+            - "21:64:64:80:7e:b4:b8:8f:6c:4d:fa:17:54:38:4b:e6"
       - run:
           name: build test app
-          command: 'cd test/app && quasar build -m ssr && ls -a && cd dist/ssr && now -p qdecimal -t ${NOW_TOKEN}'
+          command: 'cd test/app && quasar build -m spa'
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: 'sudo gh-pages --dotfiles --message "[skip ci] Updates" --dist test/app/dist/spa && yes'
+
