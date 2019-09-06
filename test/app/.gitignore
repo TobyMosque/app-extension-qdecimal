@@ -1,3 +1,4 @@
+.gitignore
 .quasar
 .DS_Store
 .thumbs.db
