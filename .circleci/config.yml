@@ -24,4 +24,4 @@ jobs:
           command: 'cd test/app && quasar build -m ssr'
       - run:
           name: Deploy docs to gh-pages branch
-          command: 'sudo gh-pages --dotfiles --message "[skip ci] Updates" --branch https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git --dist test/app/dist/ssr'
+          command: 'sudo gh-pages --dotfiles --message "[skip ci] Updates" --branch master --repo https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git --dist test/app/dist/ssr'
