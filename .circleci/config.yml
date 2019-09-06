@@ -19,12 +19,9 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - add_ssh_keys:
-          fingerprints:
-            - "21:64:64:80:7e:b4:b8:8f:6c:4d:fa:17:54:38:4b:e6"
       - run:
           name: build test app
-          command: 'cd test/app && quasar build -m spa'
+          command: 'cd test/app && quasar build -m ssr'
       - run:
-          name: Deploy docs to gh-pages branch
-          command: 'sudo gh-pages --dotfiles --message "[skip ci] Updates" --dist test/app/dist/spa && yes'
+          name: Deploy docs to now
+          command: 'cd test/app/dist/srr && now -p qdecimal -t fRMr9o6VbAooLcS6i1pVY2nJ'
