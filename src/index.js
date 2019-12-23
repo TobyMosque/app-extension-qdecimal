@@ -1,5 +1,5 @@
 const extendDatetimePicker = function (conf) {
-  conf.boot.push('~quasar-app-extension-qdecimal/src/boot/qdecimal.js')
+  conf.boot.unshift('~quasar-app-extension-qdecimal/src/boot/qdecimal.js')
   conf.build.transpileDependencies.push(/quasar-app-extension-qdecimal[\\/]src/)
   conf.css.push('~quasar-app-extension-qdecimal/src/component/qdecimal.styl')
 }

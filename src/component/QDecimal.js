@@ -5,7 +5,7 @@ import {
   QInput
 } from 'quasar'
 
-export default function (ssrContext) {
+export default function ({ ssrContext }) {
   return Vue.extend({
     name: 'QDecimal',
     mixins: [ QField ],
