@@ -174,8 +174,8 @@ export default {
     return {
       decimal: 0,
       bitcoin: 0,
-      currency: 'EUR',
-      language: 'en-us',
+      currency: 'BRL',
+      language: 'pt-br',
       languages,
       currencies: [
         { value: 'EUR', label: 'Euros' },

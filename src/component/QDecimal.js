@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { Quasar } from 'quasar'
 
 import {
   QField,
@@ -66,7 +67,7 @@ export default function ({ ssrContext }) {
     },
     computed: {
       language () {
-        return (this.lang || this.$q.lang.isoName || navigator.language) + '-u-nu-latn'
+        return (this.lang || Quasar.lang.isoName || navigator.language) + '-u-nu-latn'
       },
       intl () {
         return {
