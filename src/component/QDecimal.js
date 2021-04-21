@@ -1,7 +1,5 @@
 import Vue from 'vue'
-import { Quasar } from 'quasar'
-
-import {
+import Quasar, {
   QField,
   QInput
 } from 'quasar'
@@ -9,7 +7,7 @@ import {
 export default function ({ ssrContext }) {
   return Vue.extend({
     name: 'QDecimal',
-    mixins: [ QField ],
+    mixins: [QField],
     props: {
       value: Number,
       lang: String,
@@ -72,11 +70,11 @@ export default function ({ ssrContext }) {
       intl () {
         return {
           language: this.language,
-          options: { 
-            style: this.mode, 
-            currency: this.currency, 
-            currencyDisplay: this.display, 
-            minimumFractionDigits: this.cPrecision, 
+          options: {
+            style: this.mode,
+            currency: this.currency,
+            currencyDisplay: this.display,
+            minimumFractionDigits: this.cPrecision,
             maximumFractionDigits: this.cPrecision
           }
         }
@@ -85,14 +83,18 @@ export default function ({ ssrContext }) {
         return Intl.NumberFormat(this.intl.language, this.intl.options)
       },
       numberFormatter () {
-        return Intl.NumberFormat(this.intl.language, { style: 'decimal', minimumFractionDigits: this.cPrecision, maximumFractionDigits: this.cPrecision })
+        return Intl.NumberFormat(this.intl.language, {
+          style: 'decimal',
+          minimumFractionDigits: this.cPrecision,
+          maximumFractionDigits: this.cPrecision
+        })
       },
       formatter () {
         if (!this.prefix && !this.suffix) {
-            return this.valueFormatter
+          return this.valueFormatter
         }
         if (typeof this.prefix === "boolean" || typeof this.suffix === "boolean") {
-            return this.numberFormatter
+          return this.numberFormatter
         }
         return this.valueFormatter
       },
@@ -106,7 +108,7 @@ export default function ({ ssrContext }) {
         return this.suffix ? (typeof this.suffix === "boolean" ? this.currencyText : this.suffix) : null
       },
       cValue: {
-        get () { 
+        get () {
           return this.formatter.format(this.value)
         },
         set (value) {
@@ -125,12 +127,11 @@ export default function ({ ssrContext }) {
       intl: {
         immediate: true,
         handler () {
-          switch(this.mode)
-          {
-            case 'decimal': 
+          switch (this.mode) {
+            case 'decimal':
               this.currencyText = ''
               break
-            case 'percent': 
+            case 'percent':
               this.currencyText = '%'
               break
             default:
@@ -170,16 +171,7 @@ export default function ({ ssrContext }) {
           case evt.keyCode === 46:
             event.target.selectionStart = event.target.selectionEnd = evt.end
             break
-            // len = { new: event.target.value.length, old: evt.value.length }
-            // inc = len.new - len.old + del
-            // pos = evt.end - inc < 0 ? evt.end : evt.end - inc
-            // event.target.selectionStart = event.target.selectionEnd = pos
-            // break
           case evt.keyCode === 8:
-            // len = { new: event.target.value.length, old: evt.value.length }
-            // inc = len.new - len.old - del
-            // pos = evt.end + inc < 0 ? evt.end : evt.end + inc
-            // event.target.selectionStart = event.target.selectionEnd = pos
           case evt.value !== event.target.value:
             len = { new: event.target.value.length, old: evt.value.length }
             inc = len.new - len.old
@@ -234,10 +226,10 @@ export default function ({ ssrContext }) {
             }
             if (!event.shiftKey) {
               switch (event.keyCode) {
-                case 38: 
-                  self.$emit('input', self.value + self.step) 
+                case 38:
+                  self.$emit('input', self.value + self.step)
                   break
-                case 40: 
+                case 40:
                   if (self.value - self.step > 0) {
                     self.$emit('input', self.value - self.step)
                   } else {
