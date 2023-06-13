@@ -2,12 +2,12 @@
 
 > Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
 
-[![npm](https://img.shields.io/npm/v/quasar-app-extension-qdecimal.svg?label=quasar-app-extension-qdecimal)](https://www.npmjs.com/package/quasar-app-extension-qdecimal)
-[![npm](https://img.shields.io/npm/dt/quasar-app-extension-qdecimal.svg)](https://www.npmjs.com/package/quasar-app-extension-qdecimal)
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-qdecimal.svg?label=quasar-app-extension-qdecimal)](https://www.npmjs.com/package/@toby.mosque/quasar-app-extension-qdecimal)
+[![npm](https://img.shields.io/npm/dt/quasar-app-extension-qdecimal.svg)](https://www.npmjs.com/package/@toby.mosque/quasar-app-extension-qdecimal)
 
 # Install
 ```bash
-quasar ext add qdecimal
+quasar ext add "@toby.mosque/qdecimal"
 ```
 Quasar CLI will retrieve it from NPM and install the extension.
 
@@ -17,7 +17,7 @@ Quasar CLI will retrieve it from NPM and install the extension.
 
 # Uninstall
 ```bash
-quasar ext remove qdecimal
+quasar ext remove "@toby.mosque/qdecimal"
 ```
 
 # Info
