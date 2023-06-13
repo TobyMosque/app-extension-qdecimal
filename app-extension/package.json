@@ -1,0 +1,22 @@
+{
+  "name": "@toby.mosque/quasar-app-extension-qdecimal",
+  "version": "0.0.5",
+  "description": "QDecimal",
+  "author": "Tobias Mesquita <tobias.mesquita@gmail.com>",
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TobyMosque/app-extension-qdecimal"
+  },
+  "bugs": "https://github.com/TobyMosque/app-extension-qdecimal/issues",
+  "homepage": "https://qdecimal.tobiasmesquita.dev",
+  "dependencies": {
+    "@toby.mosque/quasar-ui-qdecimal": "latest"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  }
+}
