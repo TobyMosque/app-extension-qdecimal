@@ -1,4 +1,4 @@
-import { h, ref, toRefs, defineComponent, computed } from 'vue'
+import { h, ref, toRefs, defineComponent, computed, nextTick } from 'vue'
 import { QInput } from 'quasar'
 import { useLocaleState, usePreset, getNumberFormatter, getValueFormatter } from '../composables/locale'
 
@@ -7,6 +7,7 @@ import { useLocaleState, usePreset, getNumberFormatter, getValueFormatter } from
  */
 const defineQInput = defineComponent
 
+const notNumRegex = /[^\d]/gi
 export default defineQInput({
   name: 'QDecimal',
   emits: [...QInput.emits],
@@ -118,6 +119,24 @@ export default defineQInput({
     const preset = computed(() => usePreset(propsRef.preset.value))
     const locale = computed(() => propsRef.lang.value || curLocale.value)
 
+    /**
+     * 
+     * @param {unknown} value
+     * @param {Number} _default 
+     */
+    function parseNumber(value, _default) {
+      if (typeof value !== 'number') {
+        value = !value ? _default : parseInt(value)
+      }
+      return typeof value !== 'number' || Number.isNaN(value) ? _default : value
+    }
+    const min = computed(() => {
+      return parseNumber(attrs.min, Number.NEGATIVE_INFINITY)
+    })
+    const max = computed(() => {
+      return parseNumber(attrs.max, Number.POSITIVE_INFINITY)
+    })
+
     const type = computed(() => {
       return propsRef.type.value === undefined ? preset.value.type.value : propsRef.type.value
     })
@@ -184,20 +203,33 @@ export default defineQInput({
       }
       return getNumberFormatter(locale.value, precision.value)
     })
-
+    
     const modelValue = computed({
       get () {
         return formatter.value.format(propsRef.modelValue.value)
       },
       set (value) {
-        let onlyNumbers = value.replace(/\D/gi, '') || '0'
+        let isNegative = value.indexOf('-') !== -1
+        let onlyNumbers = value.replace(notNumRegex, '') || '0'
         let limit = places.value && places.value + precision.value <= 16 ? places.value + precision.value : 16
         if (onlyNumbers.length > limit) {
           onlyNumbers = onlyNumbers.substring(onlyNumbers.length - limit)
         }
         let interger = parseInt(onlyNumbers)
         let decimal = interger / Math.pow(10, precision.value)
-        emit('update:modelValue', parseFloat(decimal))
+
+        let numberValue = parseFloat(decimal)
+        if (isNegative) {
+          numberValue = numberValue * -1
+        }
+        if (numberValue === propsRef.modelValue.value) {
+          emit('update:modelValue', numberValue + 0.01)
+          nextTick().then(() => {
+            emit('update:modelValue', numberValue)
+          })
+        } else {
+          emit('update:modelValue', numberValue)
+        }
       }
     })
 
@@ -247,7 +279,7 @@ export default defineQInput({
       if (evt && [46, 8].indexOf(evt.keyCode) !== -1 && evt.start === evt.end) {
         let start = evt.keyCode === 46 ? evt.end : evt.end - 1
         let deleted = modelValue.value.substring(start, start + 1)
-        if (/\D/.test(deleted)) {
+        if (notNumRegex.test(deleted) && deleted !== '-') {
           let pos = evt.keyCode === 46 ? evt.end + 1 : evt.end - 1
           event.target.selectionStart = event.target.selectionEnd = pos
           event.preventDefault();
@@ -273,23 +305,41 @@ export default defineQInput({
     }
 
     function onKeyup (event) {
-      if (!event.shiftKey) {
-        if (event.target !== event.currentTarget) {
+      if (event.target !== event.currentTarget) {
+        return
+      }
+      let proporsal = 0
+      switch (event.keyCode) {
+        case 38: 
+          proporsal = propsRef.modelValue.value + step.value
+          if (proporsal <= max.value) {
+            emit('update:modelValue', proporsal)
+          } else {
+            emit('update:modelValue', max.value)
+          }
           return
-        }
-        switch (event.keyCode) {
-          case 38: 
-            emit('update:modelValue', propsRef.modelValue.value + step.value) 
-            return
-          case 40: 
-            const proporsal = propsRef.modelValue.value - step.value
-            if (proporsal > 0) {
-              emit('update:modelValue', proporsal)
-            } else {
-              emit('update:modelValue', 0)
-            }
-            return
-        }
+        case 40: 
+          proporsal = propsRef.modelValue.value - step.value
+          if (proporsal > min.value) {
+            emit('update:modelValue', proporsal)
+          } else {
+            emit('update:modelValue', min.value)
+          }
+          return
+        case 187:
+          event.stopPropagation();
+          event.preventDefault();  
+          if (propsRef.modelValue.value <= 0) {
+            emit('update:modelValue', propsRef.modelValue.value * -1)
+          }
+          break
+        case 189:
+          event.stopPropagation();
+          event.preventDefault();  
+          if (propsRef.modelValue.value >= 0) {
+            emit('update:modelValue', propsRef.modelValue.value * -1)
+          }
+          break
       }
       checkCursor(event)
       evt = null

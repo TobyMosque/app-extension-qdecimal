@@ -154,17 +154,17 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@toby.mosque/quasar-app-extension-qdecimal@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@toby.mosque/quasar-app-extension-qdecimal/-/quasar-app-extension-qdecimal-0.0.5.tgz#c85a09679cdcc971b7df68a9d836d3962f637822"
-  integrity sha512-Y+atuJapjWcL8eMvO41hidGaX5tyUkAlTs2BmVQrh+U8V0IjUI5qLh1okX59pakj0j8QdiFmdg3Gk4rlLEzEYw==
+"@toby.mosque/quasar-app-extension-qdecimal@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@toby.mosque/quasar-app-extension-qdecimal/-/quasar-app-extension-qdecimal-0.0.6.tgz#af291baf8d2af96ba4324ef5be597ebe192e4505"
+  integrity sha512-jwBReZnLLoGT4JMrHH1mttA6af3WupkpgpYbISMYJxZ+g6pSGz7mjt/rxwTvhI/xDAW4S7Jff/nfC5E3FGs5xg==
   dependencies:
-    "@toby.mosque/quasar-ui-qdecimal" latest
+    "@toby.mosque/quasar-ui-qdecimal" "^0.0.6"
 
-"@toby.mosque/quasar-ui-qdecimal@latest":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@toby.mosque/quasar-ui-qdecimal/-/quasar-ui-qdecimal-0.0.4.tgz#679bab99bca993eab34dbcfebb1d1c936d28c91d"
-  integrity sha512-GjtI2JM4LOoiMGaruyqITcnvRS6p+2uBdvzfWsuEftiAQrtAY95P3LDOu73XuvhEcvp4fVtLdR7bazF3dkulmQ==
+"@toby.mosque/quasar-ui-qdecimal@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@toby.mosque/quasar-ui-qdecimal/-/quasar-ui-qdecimal-0.0.6.tgz#d32ad6b94b7ecd211a4aef83d21944ae6b3658af"
+  integrity sha512-eb9k5thg7qBHHREOYSorXVGYqJRr33cRNQWHygweSOVVndQyInxyPekfnJJdsB0gUFGWor2FvfDua4GMwHHP+Q==
 
 "@types/body-parser@*":
   version "1.19.2"

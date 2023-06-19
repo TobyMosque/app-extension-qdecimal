@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <QDecimal filled currency="BRL" prefix v-model="value" />
+    <QDecimal filled min="-5" max="20" currency="BRL" prefix v-model="value" />
   </q-page>
 </template>
 
