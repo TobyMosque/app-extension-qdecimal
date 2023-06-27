@@ -63,7 +63,7 @@ export default defineQInput({
     display: {
       type: String,
       validation (value) {
-        return ["symbol", "code", "name"].indexOf(value) !== -1
+        return ["symbol", "narrowSymbol", "code", "name"].indexOf(value) !== -1
       },
       default() {
         return undefined

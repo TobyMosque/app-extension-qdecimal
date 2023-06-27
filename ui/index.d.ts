@@ -24,7 +24,7 @@ export interface QDecimalProps extends QInputProps {
   lang: string,
   mode: "decimal" | "currency" | "percent"
   currency: string,
-  display: "symbol" | "code" | "name",
+  display: "symbol" | "narrowSymbol" | "code" | "name",
   places: number,
   precision: number,
   step: number

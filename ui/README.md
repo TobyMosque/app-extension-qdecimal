@@ -103,7 +103,7 @@ let's review the QInput description
 
 ## Similarities
 
-everything what applies to the `QInput` also applies to the `QDecimal`, so let say you wanna to style the `QDecimal` as `dense` and `filled` and configure the `append slot` to show a icon, you follow the `QInput` docs and do that:
+everything what applies to the `QInput` also applies to the `QDecimal`, so let say you wanna to style the `QDecimal` as `dense` and `filled` and configure the `append slot` to show a icon, you can follow the `QInput` docs and do the same:
 
 ```html
 <template>
@@ -128,12 +128,12 @@ const number = ref(12.34);
 
 | Property | Detail |
 |---|---|
-| **modelValue** | the `modelValue`/`v-model` only accept decimal values, so you can't pass a string as you would do with the `QInput`. |
-| **type** | the default value is `tel` instead of `text`, that ensures a numerical keyboard will appear instead of the full one. I opted by the `tel` instead of the `number` because of the odd behaviors of the later one. |
+| **modelValue** | the `modelValue`/`v-model` only accept `number` values, so you can't pass a `string` as you would do with the `QInput`. |
+| **type** | the default value is `tel` instead of `text`, that ensures that a numerical keyboard will appear instead of the full one. I opted by the `tel` instead of the `number` because of the odd behaviors of the later one. |
 | **min** | `min` will prevent the user to input values smaller than the expected. |
 | **max** | `max` will prevent the user to input values greater than the expected. |
-| **prefix** | will also accept a boolean, if `true`, the prefix will depend of the combination of the `mode` and the `currency`. e.g: if `mode: currency` and `currency: EUR` so the displayed preffix will be `€`  |
-| **suffix** | will also accept a boolean, if `true`, the prefix will depend of the combination of the `mode` and the `currency`. e.g: if `mode: currency` and `currency: EUR` so the displayed preffix will be `€` |
+| **prefix** | will also accept a boolean, if `true`, the prefix will depend of the combination of the `mode`, the `currency` and the `display`. e.g: if `mode: currency`, `currency: EUR` and `display: symbol` so the displayed preffix will be `€`  |
+| **suffix** | will also accept a boolean, if `true`, the prefix will depend of the combination of the `mode`, the `currency` and the `display`. e.g: if `mode: currency`, `currency: EUR` and `display: symbol` so the displayed preffix will be `€` |
 
 # QDecimal additional properties
 
@@ -143,6 +143,7 @@ const number = ref(12.34);
 | **lang** | -- | A string with a BCP 47 language tag. e.g.: `en-US`, `en`, `pt-BR`, `es`. the default will be same as the `quasar lang package`. |
 | **mode** | `decimal` | The formatting style to use. possivel values: `decimal`, `currency`, `percent` or `unit` |
 | **currency** | `max` | A string with the ISO 4217 currency codes. e.g.: `USD`, `EUR` or `BRL`.  |
+| **display** | `symbol` | How to format the currency symbol. e.g.: `symbol`, `narrowSymbol`, `code` or `name`.  |
 | **places** | -- | The maximum number of significant digits to use.  |
 | **precision** | 2 | The maximum number of fraction digits to use. |
 | **step** | 1 | the values what would be increated when `↑` is pressed or decreased when `↓` is pressed. |
@@ -153,7 +154,7 @@ We`d two composables who helps to configure the presets:
 
 ## createPreset
 
-createPreset allow the dev to create a new preset what can be used later.
+`createPreset` allow the dev to create a new preset what can be used later.
 
 **type**
 ```ts
@@ -197,7 +198,7 @@ createPreset('money', {
 
 ## usePreset
 
-usePreset allow modify a previously created preset.
+`usePreset` allow to modify a previously created preset.
 
 **type**
 ```ts
