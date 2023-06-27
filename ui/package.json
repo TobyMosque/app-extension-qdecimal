@@ -1,6 +1,6 @@
 {
   "name": "@toby.mosque/quasar-ui-qdecimal",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "author": "Tobias Mesquita <tobias.mesquita@gmail.com>",
   "description": "QDecimal",
   "license": "MIT",
