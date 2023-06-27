@@ -124,7 +124,7 @@ const number = ref(12.34);
 
 ## Differences
 
-`QDecimal` overrides the behavior of that 4 properties.
+`QDecimal` overrides the behavior of that 6 properties.
 
 | Property | Detail |
 |---|---|
